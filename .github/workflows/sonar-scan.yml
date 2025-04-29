@@ -24,6 +24,10 @@ jobs:
         pytest --junitxml=test-results.xml src/tests
         coverage run -m pytest src/tests
         coverage xml -i
+    - name: Clean Python cache files
+      run: |
+        find . -type d -name "__pycache__" -exec rm -rf {} +
+        find . -type f -name "*.pyc" -delete
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@master
       env:
